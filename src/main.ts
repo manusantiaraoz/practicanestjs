@@ -7,22 +7,26 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix('api/v1');
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    forbidNonWhitelisted: true,
-  }));
-
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
 
   const configService = app.get(ConfigService);
 
-  const PORT = configService.get<number>("PORT");
-  const NODE_ENV = configService.get<string>("NODE_ENV");
+  const PORT = configService.get<number>('PORT');
+  const NODE_ENV = configService.get<string>('NODE_ENV');
 
   // const PORT = process.env.PORT || 4000;
   // const NODE_ENV = process.env.NODE_ENV || 'development';
 
   await app.listen(PORT, () => {
-    Logger.log(`Application running the port: http://localhost:${PORT}`, NestApplication.name);
+    Logger.log(
+      `Application running the port: http://localhost:${PORT}`,
+      NestApplication.name,
+    );
     Logger.log(`Current environment: ${NODE_ENV}`, NestApplication.name);
   });
 }
