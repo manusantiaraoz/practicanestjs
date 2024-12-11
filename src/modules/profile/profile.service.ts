@@ -7,7 +7,7 @@ import { PrismaService } from '../prisma/prisma.service';
 export class ProfileService {
   constructor(private readonly prisma: PrismaService) {}
   create(createProfileDto: CreateProfileDto) {
-    return 'This action adds a new profile';
+    return createProfileDto;
   }
 
   findAll() {
