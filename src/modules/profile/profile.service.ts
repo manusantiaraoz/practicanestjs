@@ -7,22 +7,31 @@ import { PrismaService } from '../prisma/prisma.service';
 export class ProfileService {
   constructor(private readonly prisma: PrismaService) {}
   create(createProfileDto: CreateProfileDto) {
-    return createProfileDto;
+    const profile=this.prisma.profile.create({
+      data: createProfileDto,
+    });
+    return profile;
   }
 
   findAll() {
-    return `This action returns all profile`;
+    const profileInfos = this.prisma.profile.findMany();
+    return profileInfos;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} profile`;
+  findOne(id: string) {
+    const profileUser = this.prisma.profile.findMany({
+      where: {
+        userId:id,
+      },
+  });
+  return profileUser;
   }
 
-  update(id: number, updateProfileDto: UpdateProfileDto) {
+  update(id: string, updateProfileDto: UpdateProfileDto) {
     return `This action updates a #${id} profile`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} profile`;
   }
 }
